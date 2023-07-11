@@ -12,7 +12,8 @@ from forms import CreatePostForm, CommentBox, RegisterUser, LoginUser
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+secret_key = os.environ.get('secret_key')
+app.config['SECRET_KEY'] = secret_key
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 ckeditor = CKEditor(app)
