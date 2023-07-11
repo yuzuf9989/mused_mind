@@ -1,0 +1,40 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://images.pexels.com/photos/792031/pexels-photo-792031.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Log In</h1>
+            <br>
+            {% if error: %}
+            <span class="error"><font color="red"><strong>{{ error }}</strong></font></span>
+            {% else: %}
+              <span class="subheading">Welcome Back!</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-8 col-md-10 mx-auto content">
+        <form method="post">
+        {{ wtf.quick_form(form, novalidate=True, button_map={"Let me in": "secondary"}) }}
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+{% include "footer.html" %}
+{% endblock %}
