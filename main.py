@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from functools import wraps
 from forms import CreatePostForm, CommentBox, RegisterUser, LoginUser
-
+import os
 
 app = Flask(__name__)
 secret_key = os.environ.get('secret_key')
