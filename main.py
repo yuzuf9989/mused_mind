@@ -13,6 +13,7 @@ import os
 
 app = Flask(__name__)
 secret_key = os.environ.get('secret_key')
+db_url = os.environ.get('database_url')
 app.config['SECRET_KEY'] = secret_key
 login_manager = LoginManager()
 login_manager.login_view = 'login'
@@ -21,7 +22,10 @@ Bootstrap(app)
 login_manager.init_app(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+if db_url:
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 error = None
