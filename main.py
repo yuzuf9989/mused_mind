@@ -67,6 +67,7 @@ def admin_only(function):
 def load_user(user_id):
     with app.app_context():
         user = db.session.query(Users).filter_by(id=user_id).first()
+        db.session.close()
         return user
 
 
@@ -85,7 +86,7 @@ def register():
         name = request.form.get('Name')
         email = request.form.get('Email')
         password = request.form.get('Password')
-        hash_password = generate_password_hash(password=password, method='pbkdf2', salt_length=16)
+        hash_password = generate_password_hash(password)
         if db.session.query(Users).filter_by(email=email).first():
             error = 'Email already in use! Please log in... '
             return redirect(url_for('login', error=error))
@@ -99,6 +100,7 @@ def register():
                 db.session.commit()
                 user = db.session.query(Users).filter_by(email=email).first()
                 login_user(user)
+                db.session.close()
             logged_in = True
             return redirect(url_for('get_all_posts', logged_in=logged_in))
     return render_template("register.html", form=form, error=error)
