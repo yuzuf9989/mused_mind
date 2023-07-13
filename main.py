@@ -32,12 +32,14 @@ error = None
 
 
 # CONFIGURE TABLES
+with app.app_context():
+    db.drop_all()
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     blogs = relationship('BlogPost', back_populates='user')
     email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(3000), nullable=False)
     name = db.Column(db.String(100), nullable=False)
 
 class BlogPost(db.Model):
@@ -53,8 +55,8 @@ class BlogPost(db.Model):
     img_url = db.Column(db.String(250), nullable=False)
 
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 def admin_only(function):
     wraps(function)
