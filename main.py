@@ -32,8 +32,6 @@ error = None
 
 
 # CONFIGURE TABLES
-with app.app_context():
-    db.drop_all()
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -55,8 +53,8 @@ class BlogPost(db.Model):
     img_url = db.Column(db.String(250), nullable=False)
 
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 def admin_only(function):
     wraps(function)
